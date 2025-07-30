@@ -1,0 +1,11 @@
+create or replace table `covid.oxford_policy_tracker`
+partition by date
+OPTIONS(
+  partition_expiration_days=1445,
+  description = "oxford_policy_tracker table in the COVID 19 Government Response public dataset with an empty time set to 1445 days,"
+)
+as
+(
+select * from bigquery-public-data.covid19_govt_response.oxford_policy_tracker
+where alpha_3_code not in ("CAN","BRA","USA","GBR")  
+)
